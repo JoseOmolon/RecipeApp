@@ -5,7 +5,7 @@ import ChefNataliaLogo from "../../assets/ChefNataliaLogo.png";
 const Footer = () => {
   return (
     <section>
-      <footer className="bg-secondary py-12">
+      <footer className="bg-secondary py-1">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

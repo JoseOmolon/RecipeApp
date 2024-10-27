@@ -1,4 +1,4 @@
-import { IoBagAdd } from "react-icons/io5";
+import { MdOutlineManageSearch } from "react-icons/md";
 import BabyChef1 from "../../assets/Babychef1.png"
 import { motion } from "framer-motion";
 import { FadeRight } from "../../utility/animation";
@@ -6,8 +6,9 @@ import { FadeRight } from "../../utility/animation";
 
 const Hero = () => {
   return (
-   <section  className="relative min-h-[800px] bg-cover bg-center"
-   id="home">
+    <section className="relative min-h-[800px] bg-gradient-to-r from-[#FFA500] to-white bg-cover bg-center" id="home">
+
+
         <div className="container grid grid-cols-1 md:grid-cols-2 min-h-[650px] relative">
             {/* Brand Info*/}
             <div className="flex flex-col justify-center py-14 md:py-0 relative z-10">
@@ -41,12 +42,12 @@ const Hero = () => {
                         initial="hidden"
                         animate="visible"
                         className="flex justify-center md:justify-start">
-                        <button className="primary-btn flex items-center gap-2">
+                       <a href="#foodsearch" className="primary-btn flex items-center gap-2">
                             <span>
-                                <IoBagAdd />
+                                <MdOutlineManageSearch />
                             </span>
                             Discover Recipes
-                        </button>
+                        </a>
                     </motion.div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import Hero from "./components/Hero/Hero"
 import FoodSearch from './components/FoodSearch/FoodSearch'
 import Navbar from "./components/Navbar/Navbar"
@@ -7,16 +8,15 @@ import Footer from "./components/Footer/Footer"
 function App() {
 
   return (
-    
-      <div>
-        <Navbar />
-        <Hero />
-        <FoodSearch />
-        <MealSearch />
+    <Router>
+      <Navbar />
+        <div>
+          <Hero id="home"/>
+          <FoodSearch id="foodsearch"/>
+          <MealSearch id="mealsearch"/>
+        </div>
         <Footer />
-      </div>
-   
-    
+    </Router> 
   )
 }
 

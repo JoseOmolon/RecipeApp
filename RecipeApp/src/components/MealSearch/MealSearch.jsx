@@ -16,7 +16,7 @@ const MealSearch = () => {
   return (
     <section
       className="relative min-h-[855px] pt-20 bg-gradient-to-r from-[#FFF7E6] to-[#FFA500]"
-      id="meal-search"
+        id="mealsearch"
     >
       <div className="container grid grid-cols-1 md:grid-cols-2 min-h-full relative">
         

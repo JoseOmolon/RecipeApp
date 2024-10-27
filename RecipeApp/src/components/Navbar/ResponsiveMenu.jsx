@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { MdClose } from "react-icons/md"; // Import close icon
 
 const ResponsiveMenu = ({ open, setOpen }) => {
   const menuRef = useRef();
@@ -34,11 +35,42 @@ const ResponsiveMenu = ({ open, setOpen }) => {
           transition={{ duration: 0.3 }}
           className="absolute top-20 left-0 w-full h-screen z-20"
         >
-          <div className="text-xl font-semibold uppercase bg-primary text-white py-10 m-6 rounded-3xl">
+          <div className="text-xl font-semibold uppercase bg-primary text-white py-10 m-6 rounded-3xl relative">
+            {/* Close button */}
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-4 right-4 text-white"
+            >
+              <MdClose className="text-3xl" />
+            </button>
             <ul className="flex flex-col items-center gap-10">
-              <li>Home</li>
-              <li>Recipes</li>
-              <li>Meals</li>
+              <li>
+                <a
+                  href="#home"
+                  onClick={() => setOpen(false)} // Close the menu on click
+                  className="hover:text-gray-300"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#foodsearch"
+                  onClick={() => setOpen(false)} // Close the menu on click
+                  className="hover:text-gray-300"
+                >
+                  Recipes
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#mealsearch"
+                  onClick={() => setOpen(false)} // Close the menu on click
+                  className="hover:text-gray-300"
+                >
+                  Meals
+                </a>
+              </li>
             </ul>
           </div>
         </motion.div>

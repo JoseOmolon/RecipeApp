@@ -1,33 +1,69 @@
 import { useState } from "react";
-import { FaLeaf } from "react-icons/fa";
-import { MdMenu, MdOutlineShoppingCart } from "react-icons/md";
+import { MdMenu } from "react-icons/md";
+import { IoArrowRedoCircleSharp } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
 import ResponsiveMenu from "./ResponsiveMenu";
-import { motion } from "framer-motion";
 
 const NavbarMenu = [
   {
     id: 1,
     title: "Home",
-    link: "/",
+    link: "#home",
   },
   {
     id: 2,
     title: "Recipes",
-    link: "#",
+    link: "#foodsearch",
   },
   {
     id: 3,
     title: "Meals",
-    link: "#",
+    link: "#mealsearch",
   },
 ];
+
+const Dropdown = () => {
+  const [isOpen, setIsOpen] = useState(false); // State to manage dropdown visibility
+
+  return (
+    <div className="relative inline-block ">
+      <button
+        className="text-4xl hover:bg-secondary rounded-full p-2 duration-200"
+        onClick={() => setIsOpen((prev) => !prev)} // Toggle dropdown on button click
+      >
+        <IoArrowRedoCircleSharp />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="absolute z-10 bg-white text-gray-700 rounded-lg shadow-lg mt-2 p-4 w-fit"
+          >
+            <p className="text-lg font-semibold">Back to Natalia's Fun World</p>
+            <a
+              href="#home" // Replace with your desired link
+              className="block mt-2 text-blue-500 hover:text-blue-700"
+              onClick={() => setIsOpen(false)} // Close dropdown on link click
+            >
+              Click Here
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <nav>
+      <nav className="bg-gradient-to-r from-[#FFA500] to-white bg-cover bg-center"> 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -56,9 +92,7 @@ const Navbar = () => {
                   </a>
                 </li>
               ))}
-              <button className="text-2xl hover:bg- hover:text-white rounded-full p-2 duration-200">
-                <MdOutlineShoppingCart />
-              </button>
+              <Dropdown /> {/* Add the Dropdown component here */}
             </ul>
           </div>
 
