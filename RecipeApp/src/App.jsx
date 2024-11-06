@@ -1,23 +1,21 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import Hero from "./components/Hero/Hero"
-import FoodSearch from './components/FoodSearch/FoodSearch'
-import Navbar from "./components/Navbar/Navbar"
-import MealSearch from "./components/MealSearch/MealSearch"
-import Footer from "./components/Footer/Footer"
+import Hero from "./components/Hero/Hero";
+import FoodSearch from './components/FoodSearch/FoodSearch';
+import Navbar from "./components/Navbar/Navbar";
+import MealSearch from "./components/MealSearch/MealSearch";
+import Footer from "./components/Footer/Footer";
 
 function App() {
-
   return (
-    <Router>
+    <div id="app">
       <Navbar />
-        <div>
-          <Hero id="home"/>
-          <FoodSearch id="foodsearch"/>
-          <MealSearch id="mealsearch"/>
-        </div>
-        <Footer />
-    </Router> 
-  )
+      <div>
+        <Hero id="home" />
+        <FoodSearch id="foodsearch" />
+        <MealSearch id="mealsearch" />
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;

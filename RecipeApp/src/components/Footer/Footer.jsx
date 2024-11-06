@@ -55,7 +55,7 @@ const Footer = () => {
         {/* Copyright centered */}
         <div className="text-center text-white mt-4">
           <p>
-            <a href="https://bobchopgaming.github.io/myprofile.io/" target="new">
+            <a href="https://joseomolon.github.io/myprofile.io/" target="new">
               © Natalia's Fun World. All rights reserved.
             </a>
           </p>

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ClockIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import RecipeModal from "./RecipeModal"; // Import the RecipeModal component
+import { ClockIcon } from "@heroicons/react/24/outline";
+import RecipeModal from "./RecipeModal";
+import RingLoader from "react-spinners/RingLoader";
+import { debounce } from "lodash"; // Import debounce from lodash
 
 const URL = "https://api.spoonacular.com/recipes/complexSearch";
 const API_KEY = "3ed84216f93d46eab0ac3409b374fe6f";
@@ -11,6 +13,7 @@ const FoodSearch = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch popular recipes on component mount
   useEffect(() => {
@@ -32,21 +35,28 @@ const FoodSearch = () => {
         setPopularRecipes(recipesWithDetails);
       } catch (error) {
         console.error("Error fetching popular recipes:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPopularRecipes();
   }, []);
 
-  // Function to handle search input change
+  // Debounced function to handle search input change
   const handleSearchChange = async (e) => {
-    setSearchTerm(e.target.value);
-    if (e.target.value) {
+    const newValue = e.target.value;
+    setSearchTerm(newValue);
+    console.log("Current Search Term:", newValue);
+  
+    if (newValue) {
       try {
-        const response = await fetch(
-          `${URL}?apiKey=${API_KEY}&query=${e.target.value}&number=5`
-        );
+        const response = await fetch(`${URL}?apiKey=${API_KEY}&query=${newValue}&number=5`);
+        if (!response.ok) throw new Error(`API call failed with status: ${response.status}`);
+        
         const data = await response.json();
+        console.log("Search Results:", data.results); // Log results to verify structure
+  
         setSearchResults(data.results || []);
       } catch (error) {
         console.error("Error fetching search results:", error);
@@ -62,6 +72,7 @@ const FoodSearch = () => {
       .then((response) => response.json())
       .then((data) => {
         setSelectedRecipe(data);
+        console.log("Selected recipe data:", data); // Debug log
       })
       .catch((error) => console.error("Error fetching recipe details:", error));
   };
@@ -69,6 +80,8 @@ const FoodSearch = () => {
   // Function to close modal
   const handleCloseModal = () => {
     setSelectedRecipe(null);
+    setSearchTerm(""); // Clear search term
+    setSearchResults([]); // Clear search results
   };
 
   return (
@@ -95,30 +108,33 @@ const FoodSearch = () => {
           </p>
 
           {/* Search Bar */}
-          <div className="relative w-full md:w-1/2 lg:w-2/3 rounded-full overflow-hidden shadow-md">
+          <div className="relative z-50">
             <input
               type="text"
               value={searchTerm}
               onChange={handleSearchChange}
-              className="w-full p-3 rounded-full border border-gray-300 bg-white text-gray-800 placeholder-current focus:outline-none"
+              className="w-screen max-w-5xl p-4 rounded-full border border-gray-300 bg-white text-gray-800 placeholder-current focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Search recipes e.g. Pizza"
             />
-            <button className="absolute right-0 top-0 mt-3 mr-4 text-secondary">
-              <MagnifyingGlassIcon className="h-6 w-6" />
-            </button>
 
-            {/* Predictive Search Dropdown */}
-            {searchResults.length > 0 && (
-              <div className="absolute w-full bg-white shadow-lg rounded-lg mt-1 z-10">
-                {searchResults.map((recipe) => (
-                  <div
-                    key={recipe.id}
-                    onClick={() => handleRecipeClick(recipe)}
-                    className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                  >
-                    {recipe.title}
-                  </div>
-                ))}
+            {searchResults && searchResults.length > 0 && (
+              <div className="absolute top-full mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                <ul>
+                  {searchResults.map((result, index) => (
+                    <li
+                      key={result.id}
+                      className="p-3 hover:bg-gray-200 cursor-pointer flex items-center"
+                      onClick={() => handleRecipeClick(result)} // Open modal for search results
+                    >
+                      <img
+                        src={result.image}
+                        alt={result.title}
+                        className="w-10 h-10 mr-3 rounded"
+                      />
+                      <span>{result.title}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
@@ -128,13 +144,44 @@ const FoodSearch = () => {
 
         {/* Recipe Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-          {popularRecipes.map((recipe) => (
+          {loading && (
+            Array(9).fill(null).map((_, index) => (
+              <motion.div
+                key={index}
+                className="relative bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-out"
+              >
+                <div className="flex justify-center items-center h-48 bg-gray-200">
+                  <RingLoader color="#4A90E2" loading={loading} />
+                </div>
+                <div className="p-4 text-center">
+                  <h2 className="font-semibold text-lg text-gray-800">Loading...</h2>
+                </div>
+              </motion.div>
+            ))
+          )}
+
+          {!loading && popularRecipes.length === 0 && (
+            Array(9).fill(null).map((_, index) => (
+              <motion.div
+                key={index}
+                className="relative bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-out"
+              >
+                <div className="flex justify-center items-center h-48 bg-gray-200">
+                  <span className="text-gray-500 text-lg">Recipe Unavailable</span>
+                </div>
+                <div className="p-4 text-center">
+                  <h2 className="font-semibold text-lg text-gray-800">No Data</h2>
+                </div>
+              </motion.div>
+            ))
+          )}
+
+          {!loading && popularRecipes.map((recipe) => (
             <motion.div
               key={recipe.id}
-              onClick={() => handleRecipeClick(recipe)}
+              onClick={() => handleRecipeClick(recipe)} // Open modal for popular recipes
               className="cursor-pointer relative bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-out"
             >
-              {/* Recipe Image */}
               <div className="relative w-full h-48 bg-gray-200">
                 <img
                   src={recipe.image}
@@ -146,8 +193,6 @@ const FoodSearch = () => {
                   <span>{recipe.readyInMinutes} mins</span>
                 </div>
               </div>
-
-              {/* Recipe Title */}
               <div className="p-4 text-center">
                 <h2 className="font-semibold text-lg text-gray-800">{recipe.title}</h2>
               </div>
