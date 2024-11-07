@@ -1,3 +1,5 @@
+
+
 const RecipeModalForMealSearch = ({ recipe, onClose }) => {
   const modalRef = useRef();
 
@@ -54,3 +56,5 @@ const RecipeModalForMealSearch = ({ recipe, onClose }) => {
     </div>
   );
 };
+
+export default RecipeModalForMealSearch;
