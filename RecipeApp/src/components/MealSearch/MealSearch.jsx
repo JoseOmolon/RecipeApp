@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FadeRight, FadeUp } from "../../utility/animation";
-import BabyChef2 from '../../assets/Babychef2.png'; // Adjust the path to the image
-import RecipeModal from '../FoodSearch/RecipeModal'; // Import the RecipeModal component
+import BabyChef2 from '../../assets/Babychef2.png';
+import RecipeListModal from './RecipeListModal';
+import RecipeModalForMealSearch from './RecipeModalForMealSearch';
 
 const MealSearch = () => {
-  const [recipes, setRecipes] = useState([]); // State for fetched recipes
-  const [selectedRecipe, setSelectedRecipe] = useState(null); // State for the selected recipe
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [recipes, setRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [isRecipeListModalOpen, setIsRecipeListModalOpen] = useState(false);
+  const [isRecipeDetailModalOpen, setIsRecipeDetailModalOpen] = useState(false);
 
   const mealData = [
     { name: "Vegan", imgSrc: "src/assets/Vegan.png" },
@@ -18,48 +20,50 @@ const MealSearch = () => {
     { name: "Mediterranean", imgSrc: "src/assets/Medditerranean.png" },
   ];
 
-  // Function to fetch recipes based on the selected meal type
   const fetchRecipes = async (mealType) => {
-    const dietMap = {
+    const typeMap = {
       Vegan: "vegan",
       Vegetarian: "vegetarian",
       Salads: "salad",
-      // Add more mappings if necessary
+      "Main Course": "main course",
+      Appetizers: "appetizer",
+      Mediterranean: "mediterranean",
     };
-    const diet = dietMap[mealType];
-    if (diet) {
-      try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=edb87242a61647e2b69e8042d0e5f0f2&diet=${diet}&number=5`);
-        const data = await response.json();
-        setRecipes(data.results); // Set fetched recipes
-      } catch (error) {
-        console.error("Error fetching recipes:", error);
-      }
+    const type = typeMap[mealType];
+    
+    let url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=ed735b86a78049eaaafbe8425df06473&number=5`;
+    
+    if (type === "vegan" || type === "vegetarian") {
+      url += `&diet=${type}`;
+    } else if (type) {
+      url += `&type=${type}`;
+    }
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setRecipes(data.results || []); // Fallback to empty array if results are undefined
+      setIsRecipeListModalOpen(true);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
     }
   };
 
-  // Handle meal type button click
   const handleMealTypeClick = (mealType) => {
-    fetchRecipes(mealType); // Fetch recipes for the selected meal type
+    fetchRecipes(mealType);
   };
 
-  // Handle recipe click to open modal
   const handleRecipeClick = (recipe) => {
-    setSelectedRecipe(recipe); // Set the selected recipe
-    setIsModalOpen(true); // Open the modal
+    setSelectedRecipe(recipe);
+    setIsRecipeDetailModalOpen(true);
   };
 
-  // Close modal handler
-  const closeModal = () => {
-    setSelectedRecipe(null); // Clear the selected recipe
-    setIsModalOpen(false); // Close the modal
-  };
+  const closeRecipeListModal = () => setIsRecipeListModalOpen(false);
+  const closeRecipeDetailModal = () => setIsRecipeDetailModalOpen(false);
 
   return (
     <section className="relative min-h-[855px] pt-20 bg-gradient-to-r from-[#FFF7E6] to-[#FFA500]" id="mealsearch">
       <div className="container grid grid-cols-1 md:grid-cols-2 min-h-full relative">
-
-        {/* Left Image with Animation */}
         <div className="flex justify-center items-center">
           <motion.img
             initial={{ opacity: 0, x: 200, rotate: 75 }}
@@ -71,7 +75,6 @@ const MealSearch = () => {
           />
         </div>
 
-        {/* Right Side with Heading, Paragraph, and Circular Meal Tiles */}
         <div className="flex flex-col justify-center items-center py-14 md:py-0 relative z-10 space-y-6">
           <motion.div
             variants={FadeRight(0.6)}
@@ -87,14 +90,13 @@ const MealSearch = () => {
             </p>
           </motion.div>
 
-          {/* Fully Circular Meal Tiles without Background */}
           <div className="grid grid-cols-3 gap-4 mt-8">
             {mealData.map((meal, index) => (
               <motion.div
                 key={index}
                 whileHover={{ scale: 1.1, translateY: -5 }}
                 className="cursor-pointer transition-transform duration-300 ease-out"
-                onClick={() => handleMealTypeClick(meal.name)} // Fetch recipes on click
+                onClick={() => handleMealTypeClick(meal.name)}
               >
                 <motion.img
                   src={meal.imgSrc}
@@ -119,9 +121,19 @@ const MealSearch = () => {
         </div>
       </div>
 
-      {/* Render RecipeModal if a recipe is selected */}
-      {isModalOpen && selectedRecipe && (
-        <RecipeModal recipe={selectedRecipe} onClose={closeModal} />
+      {isRecipeListModalOpen && (
+        <RecipeListModal
+          recipes={recipes}
+          onRecipeClick={handleRecipeClick}
+          onClose={closeRecipeListModal}
+        />
+      )}
+
+      {isRecipeDetailModalOpen && selectedRecipe && (
+        <RecipeModalForMealSearch
+          recipe={selectedRecipe}
+          onClose={closeRecipeDetailModal}
+        />
       )}
     </section>
   );

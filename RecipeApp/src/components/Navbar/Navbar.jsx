@@ -45,7 +45,7 @@ const Dropdown = () => {
           >
             <p className="text-lg font-semibold">Back to Natalia's Fun World</p>
             <a
-              href="#home" // Replace with your desired link
+              href="https://nataliafuneducation.netlify.app/" // Replace with your desired link
               className="block mt-2 text-blue-500 hover:text-blue-700"
               onClick={() => setIsOpen(false)} // Close dropdown on link click
             >
