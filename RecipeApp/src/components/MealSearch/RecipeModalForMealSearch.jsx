@@ -1,3 +1,4 @@
+import React, { useRef, useEffect } from 'react';
 
 
 const RecipeModalForMealSearch = ({ recipe, onClose }) => {

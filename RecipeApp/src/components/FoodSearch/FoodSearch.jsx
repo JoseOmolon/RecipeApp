@@ -6,7 +6,7 @@ import RingLoader from "react-spinners/RingLoader";
 import { debounce } from "lodash"; // Import debounce from lodash
 
 const URL = "https://api.spoonacular.com/recipes/complexSearch";
-const API_KEY = "ed735b86a78049eaaafbe8425df06473";
+const API_KEY = "3ed84216f93d46eab0ac3409b374fe6f";
 
 const FoodSearch = () => {
   const [popularRecipes, setPopularRecipes] = useState([]);
