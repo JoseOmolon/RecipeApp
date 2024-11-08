@@ -1,11 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['react-icons/md', 'react-icons/fa'],  // Include both icon sets
+      external: ['react-icons/md', 'react-icons/fa', 'react-icons/io5'],  // Include io5 icon set
     },
   },
-})
+});
