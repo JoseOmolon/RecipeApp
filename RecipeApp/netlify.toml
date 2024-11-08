@@ -1,0 +1,3 @@
+[build]
+  publish = "dist"  # Adjust this if your build folder is named differently, like "build" or "public"
+  command = "npm run build"
