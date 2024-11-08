@@ -30,10 +30,7 @@ const Hero = () => {
                         initial="hidden"
                         animate="visible"
                         className="text-gray-400">
-                        Healthy and Yummy Food for fresh morning 
-                        breakfast. Eat Daily for 
-                        good health and mind Order now and get 20% 
-                        off on your first order
+                        Healthy and delicious recipes for a fresh morning breakfast. Enjoy daily to boost your health and uplift your mind. Start your day with flavor and wellness!
                     </motion.p>
                     {/* button section */}
                     <motion.div 
