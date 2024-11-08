@@ -1,4 +1,4 @@
-import { MdOutlineManageSearch } from "react-icons/md";
+import { MdOutlineManageSearch } from 'react-icons/md';
 import BabyChef1 from "../../assets/Babychef1.png"
 import { motion } from "framer-motion";
 import { FadeRight } from "../../utility/animation";
