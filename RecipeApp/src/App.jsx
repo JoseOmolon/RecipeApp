@@ -3,6 +3,7 @@ import FoodSearch from './components/FoodSearch/FoodSearch';
 import Navbar from "./components/Navbar/Navbar";
 import MealSearch from "./components/MealSearch/MealSearch";
 import Footer from "./components/Footer/Footer";
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <MealSearch id="mealsearch" />
       </div>
       <Footer />
+      <Analytics/>
     </div>
   );
 }
