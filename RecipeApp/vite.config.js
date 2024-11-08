@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['react-icons/md', 'react-icons/fa', 'react-icons/io5'],  // Include io5 icon set
+      external: ['react-icons/md', 'react-icons/fa', 'react-icons/io5', 'react-spinners'],
     },
   },
 });
