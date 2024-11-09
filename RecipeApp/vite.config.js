@@ -5,10 +5,15 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['react-spinners', 'react-spinners/RingLoader'],
+      // Do not set 'react-spinners' as external
     },
   },
   optimizeDeps: {
-    include: ['react-icons/md', 'react-icons/fa', 'react-icons/io5'],
+    include: [
+      'react-spinners',
+      'react-icons/md',
+      'react-icons/fa',
+      'react-icons/io5'
+    ],
   },
 });
