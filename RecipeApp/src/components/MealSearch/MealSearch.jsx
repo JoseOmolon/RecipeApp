@@ -12,7 +12,7 @@ const MealSearch = () => {
   const [isRecipeDetailModalOpen, setIsRecipeDetailModalOpen] = useState(false);
 
   const mealData = [
-    { name: "Vegan", imgSrc: "RecipeApp/src/assets/Vegan.png" },
+    { name: "Vegan", imgSrc: "https://github.com/JoseOmolon/RecipeApp/blob/8d330cca931635c45e70a0f8bfc3d792eb05a952/RecipeApp/src/assets/Vegan.png" },
     { name: "Vegetarian", imgSrc: "src/assets/Vegetarian.png" },
     { name: "Salads", imgSrc: "src/assets/Salads.png" },
     { name: "Main Course", imgSrc: "src/assets/MainCourse.png" },
