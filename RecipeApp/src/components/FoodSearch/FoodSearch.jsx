@@ -87,7 +87,7 @@ const FoodSearch = () => {
     <section
       className="relative min-h-[1400px] bg-cover bg-center"
       style={{
-        backgroundImage: `url('RecipeApp/src/assets/LiefBG2.webp')`,
+        backgroundImage: `url('https://raw.githubusercontent.com/JoseOmolon/RecipeApp/refs/heads/main/RecipeApp/src/assets/LiefBG2.webp')`,
       }}
       id="foodsearch"
     >
