@@ -3,6 +3,7 @@ import { MdMenu } from "react-icons/md";
 import { IoArrowRedoCircleSharp } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import ResponsiveMenu from "./ResponsiveMenu";
+import ChefNataliaLogo from "../../assets/ChefNataliaLogo.png";
 
 const NavbarMenu = [
   {
