@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import RecipeModal from "./RecipeModal";
-import { RingLoader } from 'react-spinners';
+import RingLoader from 'react-spinners/RingLoader';
 
 const URL = "https://api.spoonacular.com/recipes/complexSearch";
 const API_KEY = "3ed84216f93d46eab0ac3409b374fe6f";
