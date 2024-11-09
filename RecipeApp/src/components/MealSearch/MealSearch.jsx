@@ -12,12 +12,12 @@ const MealSearch = () => {
   const [isRecipeDetailModalOpen, setIsRecipeDetailModalOpen] = useState(false);
 
   const mealData = [
-    { name: "Vegan", imgSrc: "src/assets/Vegan.png" },
-    { name: "Vegetarian", imgSrc: "src/assets/Vegetarian.png" },
-    { name: "Salads", imgSrc: "src/assets/Salads.png" },
-    { name: "Main Course", imgSrc: "src/assets/MainCourse.png" },
-    { name: "Appetizers", imgSrc: "src/assets/Appetizer.png" },
-    { name: "Mediterranean", imgSrc: "src/assets/Medditerranean.png" },
+    { name: "Vegan", imgSrc: "/assets/Vegan.png" },
+    { name: "Vegetarian", imgSrc: "/assets/Vegetarian.png" },
+    { name: "Salads", imgSrc: "/assets/Salads.png" },
+    { name: "Main Course", imgSrc: "/assets/MainCourse.png" },
+    { name: "Appetizers", imgSrc: "/assets/Appetizer.png" },
+    { name: "Mediterranean", imgSrc: "/assets/Mediterranean.png" },
   ];
 
   const fetchRecipes = async (mealType) => {
