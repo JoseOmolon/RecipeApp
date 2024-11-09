@@ -73,7 +73,7 @@ const Navbar = () => {
           {/** Logo Section */}
           <div>
             <img
-              src="src/assets/ChefNataliaLogo.png"
+              src="https://github.com/JoseOmolon/RecipeApp/blob/main/RecipeApp/src/assets/ChefNataliaLogo.png"
               alt="Web Logo"
               className="h-48 w-48"
             />
