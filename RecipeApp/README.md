@@ -14,7 +14,7 @@
 
 ## Screenshots
 
-![NataliaRecipes Screenshot](./assets/ChefNataliaRecipe.gif)  <!-- Update this with an actual screenshot if you have one -->
+![NataliaRecipes Screenshot](ChefNataliaRecipe.gif)
 
 ## Tech Stack
 
