@@ -24,13 +24,12 @@ const NavbarMenu = [
 ];
 
 const Dropdown = () => {
-  const [isOpen, setIsOpen] = useState(false); // State to manage dropdown visibility
-
+  const [isOpen, setIsOpen] = useState(false); 
   return (
     <div className="relative inline-block ">
       <button
         className="text-4xl hover:bg-secondary rounded-full p-2 duration-200"
-        onClick={() => setIsOpen((prev) => !prev)} // Toggle dropdown on button click
+        onClick={() => setIsOpen((prev) => !prev)}
       >
         <IoArrowRedoCircleSharp />
       </button>
@@ -46,9 +45,9 @@ const Dropdown = () => {
           >
             <p className="text-lg font-semibold">Back to Natalia's Fun World</p>
             <a
-              href="https://nataliafuneducation.netlify.app/" // Replace with your desired link
+              href="https://nataliafuneducation.netlify.app/" 
               className="block mt-2 text-blue-500 hover:text-blue-700"
-              onClick={() => setIsOpen(false)} // Close dropdown on link click
+              onClick={() => setIsOpen(false)}
             >
               Click Here
             </a>
