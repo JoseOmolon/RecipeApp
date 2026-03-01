@@ -12,7 +12,7 @@
 - **Recipe Details**: View detailed information about each recipe, including ingredients, instructions, and more.
 - **User-Friendly Interface**: Designed for ease of use and navigation.
 
-## Screenshots 123
+## Screenshots 12
 
 ![NataliaRecipes Screenshot](ChefNataliaRecipe.gif)
 
